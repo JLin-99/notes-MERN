@@ -28,14 +28,64 @@ const getNote = asyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id).lean().exec();
 
   if (!note) {
-    return res.status(404).json({ message: "Ticket not found" });
+    return res.status(404).json({ message: "Note not found" });
   }
 
   if (note.user.toString() !== req.user._id.toString()) {
-    return res.status(401).json({ message: "Not Authorized" });
+    return res.status(401).json({ message: "Unauthorize" });
   }
 
   res.status(200).json(note);
+});
+
+// @desc Delete user note
+// @route DELETE /api/notes/:id
+// @access Private
+const deleteNote = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).lean().exec();
+  if (!user) {
+    return res.status(401).json({ message: "User not found" });
+  }
+
+  const note = await Note.findById(req.params.id).exec();
+
+  if (!note) {
+    return res.status(404).json({ message: "Note not found" });
+  }
+
+  if (note.user.toString() !== req.user._id.toString()) {
+    return res.status(401).json({ message: "Unauthorize" });
+  }
+
+  await note.remove();
+
+  res.status(200).json({ success: true });
+});
+
+// @desc Update user note
+// @route PUT /api/notes/:id
+// @access Private
+const updateNote = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).lean().exec();
+  if (!user) {
+    return res.status(401).json({ message: "User not found" });
+  }
+
+  const note = await Note.findById(req.params.id).exec();
+
+  if (!note) {
+    return res.status(404).json({ message: "Note not found" });
+  }
+
+  if (note.user.toString() !== req.user._id.toString()) {
+    return res.status(401).json({ message: "Unauthorize" });
+  }
+
+  const updatedNote = await Note.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  res.status(200).json(updatedNote);
 });
 
 // @desc Create new note
@@ -73,6 +123,8 @@ const createNote = asyncHandler(async (req, res) => {
 
 module.exports = {
   getNotes,
-  getNote,
   createNote,
+  getNote,
+  updateNote,
+  deleteNote,
 };
