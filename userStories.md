@@ -6,4 +6,4 @@
 - [ ] As a user, I want to list both my archived notes.
 - [ ] As a user, I want to be able to add/remove categories to notes.
 - [ ] As a user, I want to be able to filter notes by category.
-- [ ] As a user, I want to be able to log in and log out from the app.
+- [x] As a user, I want to be able to log in and log out from the app.

@@ -5,6 +5,7 @@ import { register, reset } from "../features/auth/authSlice";
 import { FaUser } from "react-icons/fa";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +15,6 @@ const Register = () => {
     password2: "",
   });
   const { name, email, password, password2 } = formData;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isLoading, isSuccess, isError, message } = useSelector(
@@ -54,6 +54,8 @@ const Register = () => {
       dispatch(register(userData));
     }
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="flex h-full w-1/2 grow flex-col items-center justify-center bg-gray-200">
