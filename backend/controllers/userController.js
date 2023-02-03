@@ -32,7 +32,6 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
-      message: `New user ${name} (${email}) created`,
     });
   } else {
     res.status(400).json({ message: "Invalid user data received" });

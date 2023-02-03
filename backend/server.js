@@ -6,9 +6,6 @@ const connectDB = require("./config/dbConnection");
 const mongoose = require("mongoose");
 const { logger, logEvents } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const corsOptions = require("./config/corsOptions");
 const PORT = process.env.PORT || 3500;
 
 mongoose.set("strictQuery", false);
@@ -16,9 +13,7 @@ connectDB();
 
 app.use(logger);
 
-app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser());
 
 app.use(express.static("public"));
 

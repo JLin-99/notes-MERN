@@ -20,18 +20,18 @@ const Header = () => {
         </div>
 
         <ul className="flex gap-5 text-lg font-bold">
-          <li className="py-2 px-3 hover:text-amber-600">
+          <li className="py-2 px-3">
             <Link
               to="/login"
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 hover:text-amber-600"
             >
               <FaSignInAlt /> Login
             </Link>
           </li>
-          <li className="py-2 px-3 hover:text-amber-600">
+          <li className="py-2 px-3">
             <Link
               to="/register"
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 hover:text-amber-600"
             >
               <FaUser /> Register
             </Link>
