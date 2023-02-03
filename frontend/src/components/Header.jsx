@@ -7,10 +7,10 @@ import {
 import { Link } from "react-router-dom";
 const Header = () => {
   return (
-    <header>
-      <nav className="relative w-full min-h-24 flex flex-wrap items-center justify-between py-5 px-7 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
+    <header className="relative h-24 w-full">
+      <nav className="flex h-full flex-wrap items-center justify-between bg-gray-900 py-5 px-7 text-gray-200 shadow-lg">
         <div className="text-4xl">
-          <Link to="/" className="flex gap-2 items-center justify-center">
+          <Link to="/" className="flex items-center justify-center gap-2">
             <FaRegStickyNote className="text-amber-600" />
             <span>
               <span className="text-amber-600">E</span>nsolvers
@@ -20,18 +20,18 @@ const Header = () => {
         </div>
 
         <ul className="flex gap-5 text-lg font-bold">
-          <li className="hover:text-amber-600 py-2 px-3">
+          <li className="py-2 px-3 hover:text-amber-600">
             <Link
               to="/login"
-              className="flex gap-2 items-center justify-center"
+              className="flex items-center justify-center gap-2"
             >
               <FaSignInAlt /> Login
             </Link>
           </li>
-          <li className="hover:text-amber-600 py-2 px-3">
+          <li className="py-2 px-3 hover:text-amber-600">
             <Link
               to="/register"
-              className="flex gap-2 items-center justify-center"
+              className="flex items-center justify-center gap-2"
             >
               <FaUser /> Register
             </Link>
