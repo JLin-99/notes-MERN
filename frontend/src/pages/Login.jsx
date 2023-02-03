@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-full w-2/4 grow flex-col items-center justify-center bg-gray-200">
+    <div className="flex h-full w-1/2 grow flex-col items-center justify-center bg-gray-200">
       <section className="mb-5 flex flex-col items-center justify-center">
         <h1 className="mb-3 flex items-center justify-center gap-4 text-7xl">
           <FaSignInAlt /> Login
