@@ -2,26 +2,6 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/User");
 const Note = require("../models/Note");
 
-// @desc Log in a user
-// @route POST /api/users/login
-// @access Public
-const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email }).lean().exec();
-  if (user && (await bcrypt.compare(password, user.password))) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-      message: `User ${user.name} (${email}) logged`,
-    });
-  } else {
-    res.status(401).json({ message: "Invalid credentials" });
-  }
-});
-
 // @desc Get user notes
 // @route GET /api/notes
 // @access Private
@@ -34,6 +14,28 @@ const getNotes = asyncHandler(async (req, res) => {
   const notes = await Note.find({ user: req.user._id }).lean().exec();
 
   res.status(200).json(notes);
+});
+
+// @desc Get user note
+// @route GET /api/notes/:id
+// @access Private
+const getNote = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).lean().exec();
+  if (!user) {
+    return res.status(401).json({ message: "User not found" });
+  }
+
+  const note = await Note.findById(req.params.id).lean().exec();
+
+  if (!note) {
+    return res.status(404).json({ message: "Ticket not found" });
+  }
+
+  if (note.user.toString() !== req.user._id.toString()) {
+    return res.status(401).json({ message: "Not Authorized" });
+  }
+
+  res.status(200).json(note);
 });
 
 // @desc Create new note
@@ -71,5 +73,6 @@ const createNote = asyncHandler(async (req, res) => {
 
 module.exports = {
   getNotes,
+  getNote,
   createNote,
 };

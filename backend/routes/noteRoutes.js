@@ -7,4 +7,6 @@ router.use(verifyJWT);
 
 router.route("/").get(noteController.getNotes).post(noteController.createNote);
 
+router.route("/:id").get(noteController.getNote);
+
 module.exports = router;
