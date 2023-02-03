@@ -52,7 +52,13 @@ export const noteSlice = createSlice({
   name: "note",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: (state) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.isSuccess = false;
+      state.message = "";
+      state.note = {};
+    },
   },
   extraReducers: (builder) => {
     builder
