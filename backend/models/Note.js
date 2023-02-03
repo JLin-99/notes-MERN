@@ -12,12 +12,10 @@ const noteSchema = new mongoose.Schema(
       required: [true, "Please add a title"],
       unique: true,
     },
-    content: {
-      type: String,
-      required: [true, "Please enter content"],
-    },
+    content: String,
     archived: {
       type: Boolean,
+      required: true,
       default: false,
     },
     categories: [String],
