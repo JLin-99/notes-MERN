@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { register } from "../features/auth/authSlice";
+import { FaUser } from "react-icons/fa";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,11 @@ const Register = () => {
     password2: "",
   });
   const { name, email, password, password2 } = formData;
+
+  const dispatch = useDispatch();
+  const { user, isLoading, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -30,7 +37,7 @@ const Register = () => {
     <div className="flex h-full w-1/2 grow flex-col items-center justify-center bg-gray-200">
       <section className="mb-5 flex flex-col items-center justify-center">
         <h1 className="mb-3 flex items-center justify-center gap-4 text-7xl">
-          <FaUser /> Register
+          <FaUser /> Register {user}
         </h1>
         <p className="text-2xl">Create your account</p>
       </section>

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="relative h-24 w-full">
-      <nav className="flex h-full flex-wrap items-center justify-between bg-gray-900 py-5 px-7 text-gray-200 shadow-lg">
+      <nav className="flex h-full flex-wrap items-center justify-between bg-gray-900 py-5 px-10 text-gray-200 shadow-lg">
         <div className="text-4xl">
           <Link to="/" className="flex items-center justify-center gap-2">
             <FaRegStickyNote className="text-amber-600" />
