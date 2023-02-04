@@ -14,7 +14,7 @@ const NoteItem = ({ note, handleBtn }) => {
         onClick={() => handleBtn("show")}
       >
         <div className="mb-3 text-xl font-bold">{note.title}</div>
-        <div>{new Date(note.createdAt).toLocaleDateString()}</div>
+        <div>Last edited: {new Date(note.updatedAt).toLocaleDateString()}</div>
       </div>
       <div className="flex cursor-pointer items-center gap-4 self-end">
         <BsFillArchiveFill size={30} onClick={() => handleBtn("archive")} />
