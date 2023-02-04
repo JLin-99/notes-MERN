@@ -11,6 +11,7 @@ import NewNote from "../components/NoteForm";
 import Spinner from "../components/Spinner";
 import NoteItem from "../components/NoteItem";
 import DelConfirmDialog from "../components/DelConfirmDialog";
+import CategoriesDropdown from "../components/CategoriesDropdown";
 
 Modal.setAppElement("#root");
 
@@ -31,9 +32,9 @@ const Board = () => {
 
   return (
     <div className="flex h-full w-full grow flex-col bg-gray-200">
-      <header className="flex w-full items-center gap-10 py-5 px-10">
+      <header className="flex w-full flex-col gap-10 py-5 px-10">
         {view === "main" ? (
-          <>
+          <div className="flex w-full items-center gap-10">
             <h1 className="text-5xl font-extrabold">My notes</h1>
             <div className="flex items-center gap-5">
               <div
@@ -49,9 +50,9 @@ const Board = () => {
                 Archived notes
               </div>
             </div>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="flex w-full items-center gap-10">
             <h1 className="text-5xl font-extrabold">Archived notes</h1>
             <div className="flex items-center gap-5">
               <div
@@ -61,8 +62,12 @@ const Board = () => {
                 {"< Go back to unarchived notes"}
               </div>
             </div>
-          </>
+          </div>
         )}
+        <div className="flex items-center gap-3">
+          <label>Category filter</label>
+          <CategoriesDropdown />
+        </div>
       </header>
 
       {isLoading && !isModalOpen ? (

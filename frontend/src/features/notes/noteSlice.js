@@ -5,6 +5,7 @@ const initialState = {
   notes: [],
   categories: [],
   note: {},
+  selectedCategory: "",
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -101,6 +102,9 @@ export const noteSlice = createSlice({
     addCategories: (state, action) => {
       state.categories = [...new Set([...state.categories, ...action.payload])];
     },
+    selectCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -124,7 +128,6 @@ export const noteSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.notes = action.payload;
-
         state.categories = action.payload.reduce(
           (categories, note) => [
             ...new Set([...categories, ...note.categories]),
@@ -146,6 +149,12 @@ export const noteSlice = createSlice({
         state.notes = state.notes.map((note) =>
           note._id === action.payload._id ? action.payload : note
         );
+        state.categories = state.notes.reduce(
+          (categories, note) => [
+            ...new Set([...categories, ...note.categories]),
+          ],
+          []
+        );
       })
       .addCase(updateNote.rejected, (state, action) => {
         state.isLoading = false;
@@ -161,6 +170,12 @@ export const noteSlice = createSlice({
         state.notes = state.notes.filter(
           (note) => note._id !== action.payload.id
         );
+        state.categories = state.notes.reduce(
+          (categories, note) => [
+            ...new Set([...categories, ...note.categories]),
+          ],
+          []
+        );
       })
       .addCase(deleteNote.rejected, (state, action) => {
         state.isLoading = false;
@@ -170,5 +185,5 @@ export const noteSlice = createSlice({
   },
 });
 
-export const { reset, addCategories } = noteSlice.actions;
+export const { reset, addCategories, selectCategory } = noteSlice.actions;
 export default noteSlice.reducer;

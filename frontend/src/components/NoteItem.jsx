@@ -27,22 +27,15 @@ const NoteItem = ({ note }) => {
     dispatch(updateNote({ ...note, archived: !note.archived }));
   };
 
-  const handleBtn = () => {
-    console.log("nada");
-  };
-
   return (
     <>
       <div className="flex h-full w-[48%] min-w-[420px] gap-5 rounded-md border-2 border-gray-900 p-5 text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0">
         <FaStickyNote
           size={70}
           className="cursor-pointer"
-          onClick={() => handleBtn("show")}
+          onClick={handleEdit}
         />
-        <div
-          className="flex grow cursor-pointer flex-col"
-          onClick={() => handleBtn("show")}
-        >
+        <div className="flex grow cursor-pointer flex-col" onClick={handleEdit}>
           <div className="mb-3 text-xl font-bold">{note.title}</div>
           <div>
             Last edited: {new Date(note.updatedAt).toLocaleDateString()}
