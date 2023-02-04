@@ -106,7 +106,11 @@ const NoteForm = () => {
                 Categories
               </label>
               <div className="m-0 flex grow flex-col overflow-hidden">
-                <div className="mb-3 flex h-24 grow flex-wrap items-start gap-2 overflow-auto rounded-lg border border-solid bg-white p-2">
+                <div
+                  className={`mb-3 flex h-24 grow flex-wrap items-start gap-2 overflow-auto rounded-lg border border-solid bg-white p-2 ${
+                    !note.categories.length && "cursor-not-allowed"
+                  }`}
+                >
                   {note.categories.map((category) => (
                     <Category
                       key={category}

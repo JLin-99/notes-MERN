@@ -33,7 +33,7 @@ const Board = () => {
   };
 
   return (
-    <div className="flex h-full w-full grow flex-col bg-gray-200">
+    <div className="flex h-full w-full grow flex-col">
       <header className="flex w-full flex-col gap-10 py-5 px-10">
         {view === "main" ? (
           <div className="flex w-full items-center gap-10">
@@ -46,7 +46,7 @@ const Board = () => {
                 Create note
               </div>
               <div
-                className="cursor-pointer hover:text-amber-900 hover:underline"
+                className="cursor-pointer text-amber-900 underline hover:text-amber-800"
                 onClick={() => setView("archived")}
               >
                 Archived notes
@@ -58,7 +58,7 @@ const Board = () => {
             <h1 className="text-5xl font-extrabold">Archived notes</h1>
             <div className="flex items-center gap-5">
               <div
-                className="cursor-pointer hover:text-amber-900 hover:underline"
+                className="cursor-pointer text-amber-900 underline hover:text-amber-800"
                 onClick={() => setView("main")}
               >
                 {"< Go back to unarchived notes"}
@@ -99,7 +99,7 @@ const Board = () => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => dispatch(resetModal())}
-        className={`rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none ${"relative top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] min-h-[50%] w-1/2 translate-x-[-50%] translate-y-[-50%]"} flex items-center justify-center`}
+        className="relative top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] flex min-h-[50%] w-1/2 translate-x-[-50%] translate-y-[-50%] items-center justify-center rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none"
       >
         {modalType.toLowerCase() !== "delete" ? (
           <NewNote />

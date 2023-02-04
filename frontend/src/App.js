@@ -10,7 +10,7 @@ import Register from "./pages/Register";
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-red-50">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-200">
       <BrowserRouter>
         <Header />
         <Routes>

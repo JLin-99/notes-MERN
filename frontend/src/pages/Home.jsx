@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="mb-10 flex h-full w-1/2 grow flex-col items-center justify-center bg-gray-200 text-center">
+    <div className="mb-10 flex h-full w-1/2 grow flex-col items-center justify-center text-center">
       <section>
         <h1 className="mb-20 text-7xl">
           Welcome to <span className="text-amber-600">E</span>nsolvers
