@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNotes } from "../features/notes/noteSlice";
+import { getNotes, selectCategory } from "../features/notes/noteSlice";
 import {
   openModal,
   resetModal,
@@ -12,6 +12,7 @@ import Spinner from "../components/Spinner";
 import NoteItem from "../components/NoteItem";
 import DelConfirmDialog from "../components/DelConfirmDialog";
 import CategoriesDropdown from "../components/CategoriesDropdown";
+import { AiOutlineClear } from "react-icons/ai";
 
 Modal.setAppElement("#root");
 
@@ -25,7 +26,7 @@ const Board = () => {
 
   useEffect(() => {
     dispatch(getNotes());
-  }, []);
+  }, [dispatch]);
 
   const handleCreateNote = () => {
     dispatch(setModalType("Create"));
@@ -69,6 +70,11 @@ const Board = () => {
         <div className="flex items-center gap-3">
           <label>Category filter</label>
           <CategoriesDropdown />
+          <AiOutlineClear
+            size={20}
+            className="cursor-pointer hover:text-amber-900"
+            onClick={() => dispatch(selectCategory(""))}
+          />
         </div>
       </header>
 

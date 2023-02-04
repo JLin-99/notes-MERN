@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deleteNote, updateNote } from "../features/notes/noteSlice";
+import { updateNote } from "../features/notes/noteSlice";
 import {
   openModal,
   setModalNote,

@@ -115,6 +115,12 @@ export const noteSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.notes = [...state.notes, action.payload];
+        state.categories = state.notes.reduce(
+          (categories, note) => [
+            ...new Set([...categories, ...note.categories]),
+          ],
+          []
+        );
       })
       .addCase(createNote.rejected, (state, action) => {
         state.isLoading = false;
@@ -128,7 +134,7 @@ export const noteSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.notes = action.payload;
-        state.categories = action.payload.reduce(
+        state.categories = state.notes.reduce(
           (categories, note) => [
             ...new Set([...categories, ...note.categories]),
           ],
