@@ -26,6 +26,24 @@ const getNotes = async (token) => {
   return response.data;
 };
 
+const updateNote = async (noteData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const updatedNote = {
+    title: noteData.title,
+    content: noteData.content,
+    archived: noteData.archived,
+    categories: noteData.categories,
+  };
+
+  const response = await axios.put(API_URL + noteData._id, updatedNote, config);
+
+  return response.data;
+};
+
 const deleteNote = async (noteId, token) => {
   const config = {
     headers: {
@@ -41,6 +59,7 @@ const deleteNote = async (noteId, token) => {
 const noteService = {
   createNote,
   getNotes,
+  updateNote,
   deleteNote,
 };
 export default noteService;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getNotes, reset } from "../features/notes/noteSlice";
 import Modal from "react-modal";
-import NewNote from "../components/NewNote";
+import NewNote from "../components/NoteForm";
 import Spinner from "../components/Spinner";
 import NoteItem from "../components/NoteItem";
 
@@ -85,7 +85,7 @@ const Board = () => {
         style={customStyles}
         className="rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none"
       >
-        <NewNote closeModal={closeModal} />
+        <NewNote closeModal={closeModal} action="Create" />
       </Modal>
     </div>
   );

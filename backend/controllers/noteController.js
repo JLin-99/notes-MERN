@@ -77,6 +77,13 @@ const updateNote = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "Note not found" });
   }
 
+  const duplicatedTitle = await Note.findOne({ title: req.body.title })
+    .lean()
+    .exec();
+  if (duplicatedTitle) {
+    return res.status(409).json({ message: "Duplicated title" });
+  }
+
   if (note.user.toString() !== req.user._id.toString()) {
     return res.status(401).json({ message: "Unauthorize" });
   }
