@@ -66,6 +66,7 @@ redux: ^4.2.1 |
 @headlessui/react: ^1.7.9 | 
 @reduxjs/toolkit: ^1.9.2 | 
 
+
 # Screenshots
 
 > Home page
@@ -90,6 +91,16 @@ redux: ^4.2.1 |
 
 > User can filter notes by category
 ![User can filter notes by category](screenshots/FilterByCategory.png)
+
+
+# Demo (deployed on render.com)
+
+https://ensolvers-notes.onrender.com
+
+> You can create an account or you can use:
+> 
+>     email: ensolversdev@gmail.com
+>     psswd: 1234
 
 
 # Author
