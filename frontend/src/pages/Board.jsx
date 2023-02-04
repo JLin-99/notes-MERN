@@ -44,10 +44,28 @@ const Board = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="grow">
-      <h2>Board</h2>
-      {/* <NewNote /> */}
-      <button onClick={openModal}>New Note</button>
+    <div className="flex h-full w-full grow flex-col bg-gray-200">
+      <header className="flex w-full items-center gap-10  py-5 px-10">
+        <h1 className="text-5xl font-extrabold">My notes</h1>
+        <div className="flex items-center gap-5">
+          <div
+            className="cursor-pointer rounded-lg border-2 border-gray-900 px-3 py-2 text-base font-medium uppercase leading-tight text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0"
+            onClick={openModal}
+          >
+            Create note
+          </div>
+          <div className="cursor-pointer hover:text-amber-900 hover:underline">
+            Archived notes
+          </div>
+        </div>
+      </header>
+
+      <div className="flex h-full grow flex-wrap bg-green-50 p-5">
+        {notes.map((note) => (
+          <NoteItem key={note._id} note={note} />
+        ))}
+      </div>
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -56,19 +74,6 @@ const Board = () => {
       >
         <NewNote closeModal={closeModal} />
       </Modal>
-
-      <div>
-        <div>My Notes</div>
-        <div>
-          <button>Create note</button>
-          <button>Archived notes</button>
-        </div>
-      </div>
-      <div>
-        {notes.map((note) => (
-          <NoteItem key={note._id} note={note} />
-        ))}
-      </div>
     </div>
   );
 };
