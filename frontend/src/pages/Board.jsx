@@ -17,7 +17,9 @@ Modal.setAppElement("#root");
 
 const Board = () => {
   const [view, setView] = useState("main");
-  const { notes, categories, isLoading } = useSelector((state) => state.note);
+  const { notes, selectedCategory, isLoading } = useSelector(
+    (state) => state.note
+  );
   const { isModalOpen, modalType } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
@@ -77,9 +79,19 @@ const Board = () => {
           {view === "archived"
             ? notes
                 .filter((note) => note.archived)
+                .filter(
+                  (note) =>
+                    note.categories.includes(selectedCategory) ||
+                    selectedCategory === ""
+                )
                 .map((note) => <NoteItem key={note._id} note={note} />)
             : notes
                 .filter((note) => !note.archived)
+                .filter(
+                  (note) =>
+                    note.categories.includes(selectedCategory) ||
+                    selectedCategory === ""
+                )
                 .map((note) => <NoteItem key={note._id} note={note} />)}
         </div>
       )}
