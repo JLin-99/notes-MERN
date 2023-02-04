@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNotes, reset } from "../features/notes/noteSlice";
+import { getNotes } from "../features/notes/noteSlice";
 import {
   openModal,
   resetModal,
@@ -10,12 +10,13 @@ import Modal from "react-modal";
 import NewNote from "../components/NoteForm";
 import Spinner from "../components/Spinner";
 import NoteItem from "../components/NoteItem";
+import DelConfirmDialog from "../components/DelConfirmDialog";
 
 Modal.setAppElement("#root");
 
 const Board = () => {
-  const { notes, isLoading, isSuccess } = useSelector((state) => state.note);
-  const { isModalOpen } = useSelector((state) => state.modal);
+  const { notes, isLoading } = useSelector((state) => state.note);
+  const { isModalOpen, modalType } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,9 +58,13 @@ const Board = () => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => dispatch(resetModal())}
-        className={`rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none ${"relative top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] min-h-[50%] w-1/2 translate-x-[-50%] translate-y-[-50%]"}`}
+        className={`rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none ${"relative top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] min-h-[50%] w-1/2 translate-x-[-50%] translate-y-[-50%]"} flex items-center justify-center`}
       >
-        <NewNote />
+        {modalType.toLowerCase() !== "delete" ? (
+          <NewNote />
+        ) : (
+          <DelConfirmDialog />
+        )}
       </Modal>
     </div>
   );

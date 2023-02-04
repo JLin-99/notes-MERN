@@ -12,7 +12,9 @@ const NoteItem = ({ note }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteNote(note._id));
+    dispatch(setModalType("delete"));
+    dispatch(setModalNote(note));
+    dispatch(openModal());
   };
 
   const handleEdit = () => {
@@ -43,9 +45,17 @@ const NoteItem = ({ note }) => {
           </div>
         </div>
         <div className="flex cursor-pointer items-center gap-4 self-end">
-          <BsFillArchiveFill size={30} onClick={() => handleBtn("archive")} />
-          <FaEdit size={30} onClick={handleEdit} />
-          <FaTrashAlt size={30} onClick={handleDelete} />
+          <BsFillArchiveFill
+            size={30}
+            onClick={() => handleBtn("archive")}
+            className="hover:opacity-80"
+          />
+          <FaEdit size={30} onClick={handleEdit} className="hover:opacity-80" />
+          <FaTrashAlt
+            size={30}
+            onClick={handleDelete}
+            className="hover:opacity-80"
+          />
         </div>
       </div>
     </>
