@@ -1,15 +1,25 @@
-const NoteItem = ({ note }) => {
+import { FaEdit, FaStickyNote, FaTrashAlt } from "react-icons/fa";
+import { BsFillArchiveFill } from "react-icons/bs";
+
+const NoteItem = ({ note, handleBtn }) => {
   return (
-    <div>
-      <div>Icon</div>
-      <div>
-        <div>{note.title}</div>
+    <div className="flex h-full w-[48%] min-w-[420px] gap-5 rounded-md border-2 border-gray-900 p-5 text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0">
+      <FaStickyNote
+        size={70}
+        className="cursor-pointer"
+        onClick={() => handleBtn("show")}
+      />
+      <div
+        className="flex grow cursor-pointer flex-col"
+        onClick={() => handleBtn("show")}
+      >
+        <div className="mb-3 text-xl font-bold">{note.title}</div>
         <div>{new Date(note.createdAt).toLocaleDateString()}</div>
       </div>
-      <div>
-        <button>Archive</button>
-        <button>Edit</button>
-        <button>Delete</button>
+      <div className="flex cursor-pointer items-center gap-4 self-end">
+        <BsFillArchiveFill size={30} onClick={() => handleBtn("archive")} />
+        <FaEdit size={30} onClick={() => handleBtn("edit")} />
+        <FaTrashAlt size={30} onClick={() => handleBtn("delete")} />
       </div>
     </div>
   );

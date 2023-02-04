@@ -40,6 +40,9 @@ const Board = () => {
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
+  const handleBtn = (btn) => {
+    console.log(btn);
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -60,9 +63,9 @@ const Board = () => {
         </div>
       </header>
 
-      <div className="flex h-full grow flex-wrap bg-green-50 p-5">
+      <div className="flex h-full grow flex-wrap gap-5 p-5">
         {notes.map((note) => (
-          <NoteItem key={note._id} note={note} />
+          <NoteItem key={note._id} note={note} handleBtn={handleBtn} />
         ))}
       </div>
 
