@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import { deleteNote } from "../features/notes/noteSlice";
+import { deleteNote, updateNote } from "../features/notes/noteSlice";
 import {
   openModal,
   setModalNote,
   setModalType,
 } from "../features/modal/modalSlice";
-import { FaEdit, FaStickyNote, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaStickyNote, FaTrashAlt, FaUpload } from "react-icons/fa";
 import { BsFillArchiveFill } from "react-icons/bs";
 
 const NoteItem = ({ note }) => {
@@ -21,6 +21,10 @@ const NoteItem = ({ note }) => {
     dispatch(setModalType("Edit"));
     dispatch(setModalNote(note));
     dispatch(openModal());
+  };
+
+  const handleArchive = () => {
+    dispatch(updateNote({ ...note, archived: !note.archived }));
   };
 
   const handleBtn = () => {
@@ -45,11 +49,20 @@ const NoteItem = ({ note }) => {
           </div>
         </div>
         <div className="flex cursor-pointer items-center gap-4 self-end">
-          <BsFillArchiveFill
-            size={30}
-            onClick={() => handleBtn("archive")}
-            className="hover:opacity-80"
-          />
+          {note.archived ? (
+            <FaUpload
+              size={25}
+              onClick={handleArchive}
+              className="mr-2 hover:opacity-80"
+            />
+          ) : (
+            <BsFillArchiveFill
+              size={30}
+              onClick={handleArchive}
+              className="hover:opacity-80"
+            />
+          )}
+
           <FaEdit size={30} onClick={handleEdit} className="hover:opacity-80" />
           <FaTrashAlt
             size={30}

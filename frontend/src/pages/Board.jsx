@@ -49,9 +49,11 @@ const Board = () => {
         <Spinner />
       ) : (
         <div className="flex grow flex-wrap content-start gap-5 p-5">
-          {notes.map((note) => (
-            <NoteItem key={note._id} note={note} />
-          ))}
+          {notes
+            .filter((note) => !note.archived)
+            .map((note) => (
+              <NoteItem key={note._id} note={note} />
+            ))}
         </div>
       )}
 
