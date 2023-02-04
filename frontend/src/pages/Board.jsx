@@ -9,6 +9,7 @@ import NoteItem from "../components/NoteItem";
 const customStyles = {
   content: {
     width: "50%",
+    minHeight: "50%",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -48,7 +49,7 @@ const Board = () => {
 
   return (
     <div className="flex h-full w-full grow flex-col bg-gray-200">
-      <header className="flex w-full items-center gap-10  py-5 px-10">
+      <header className="flex w-full items-center gap-10 py-5 px-10">
         <h1 className="text-5xl font-extrabold">My notes</h1>
         <div className="flex items-center gap-5">
           <div
@@ -74,6 +75,7 @@ const Board = () => {
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="New Note"
+        className="rounded-lg border-2 border-gray-800 bg-gray-200 p-5"
       >
         <NewNote closeModal={closeModal} />
       </Modal>
