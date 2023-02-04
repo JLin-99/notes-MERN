@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { createNote, reset } from "../features/notes/noteSlice";
 import Spinner from "./Spinner";
 
-const NewNote = () => {
+const NewNote = ({ closeModal }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { isLoading, isError, isSuccess, message } = useSelector(
@@ -69,7 +69,7 @@ const NewNote = () => {
             </div>
             <div>
               <input type="text" name="category" id="category" />
-              <button>Add</button>
+              <button onClick={() => closeModal()}>Add</button>
             </div>
           </div>
           <div>

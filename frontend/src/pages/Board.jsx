@@ -1,11 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getNotes, reset } from "../features/notes/noteSlice";
+import Modal from "react-modal";
 import NewNote from "../components/NewNote";
 import Spinner from "../components/Spinner";
 import NoteItem from "../components/NoteItem";
 
+const customStyles = {
+  content: {
+    width: "50%",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    position: "relative",
+  },
+};
+
+Modal.setAppElement("#root");
+
 const Board = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { notes, isLoading, isSuccess } = useSelector((state) => state.note);
   const dispatch = useDispatch();
 
@@ -21,12 +38,24 @@ const Board = () => {
     dispatch(getNotes());
   }, [dispatch]);
 
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
+
   if (isLoading) return <Spinner />;
 
   return (
     <div className="grow">
       <h2>Board</h2>
-      <NewNote />
+      {/* <NewNote /> */}
+      <button onClick={openModal}>New Note</button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="New Note"
+      >
+        <NewNote closeModal={closeModal} />
+      </Modal>
 
       <div>
         <div>My Notes</div>
