@@ -39,13 +39,18 @@ const Board = () => {
     dispatch(getNotes());
   }, [dispatch]);
 
-  const openModal = () => setModalIsOpen(true);
+  const openModal = () => {
+    if (modalIsOpen) return;
+    setModalIsOpen(true);
+  };
   const closeModal = () => setModalIsOpen(false);
   const handleBtn = (btn) => {
-    console.log(btn);
+    switch (btn) {
+      case "show":
+        console.log(btn);
+        break;
+    }
   };
-
-  if (isLoading) return <Spinner />;
 
   return (
     <div className="flex h-full w-full grow flex-col bg-gray-200">
@@ -64,18 +69,21 @@ const Board = () => {
         </div>
       </header>
 
-      <div className="flex h-full grow flex-wrap gap-5 p-5">
-        {notes.map((note) => (
-          <NoteItem key={note._id} note={note} handleBtn={handleBtn} />
-        ))}
-      </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="flex grow flex-wrap content-start gap-5 p-5">
+          {notes.map((note) => (
+            <NoteItem key={note._id} note={note} handleBtn={handleBtn} />
+          ))}
+        </div>
+      )}
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="New Note"
-        className="rounded-lg border-2 border-gray-800 bg-gray-200 p-5"
+        className="rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none"
       >
         <NewNote closeModal={closeModal} />
       </Modal>
