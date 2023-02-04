@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createNote, reset, updateNote } from "../features/notes/noteSlice";
+import { resetModal } from "../features/modal/modalSlice";
 import Category from "./Category";
 import Spinner from "./Spinner";
 
-const NoteForm = ({ noteData, action, closeModal }) => {
+const NoteForm = () => {
+  const { modalType, modalNote } = useSelector((state) => state.modal);
   const [note, setNote] = useState(
-    noteData
-      ? noteData
+    modalNote
+      ? modalNote
       : {
           title: "",
           content: "",
@@ -30,7 +32,7 @@ const NoteForm = ({ noteData, action, closeModal }) => {
 
     if (isSuccess) {
       dispatch(reset());
-      closeModal();
+      dispatch(resetModal());
     }
 
     dispatch(reset());
@@ -38,10 +40,10 @@ const NoteForm = ({ noteData, action, closeModal }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (action.toLowerCase() === "create") {
+    if (modalType.toLowerCase() === "create") {
       dispatch(createNote(note));
     }
-    if (action.toLowerCase() === "edit") {
+    if (modalType.toLowerCase() === "edit") {
       dispatch(updateNote(note));
     }
   };
@@ -67,7 +69,7 @@ const NoteForm = ({ noteData, action, closeModal }) => {
   return (
     <div className="flex h-full w-full flex-col justify-center p-5">
       <section className="">
-        <h2 className="mb-10 text-5xl">{action} note</h2>
+        <h2 className="mb-10 text-5xl">{modalType} note</h2>
       </section>
       {isLoading ? (
         <Spinner />
@@ -133,7 +135,7 @@ const NoteForm = ({ noteData, action, closeModal }) => {
             <div className="flex items-center justify-end gap-5">
               <button
                 className="inline-block rounded-lg border-2 border-gray-900 px-6 py-3 text-sm font-medium uppercase leading-tight text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0"
-                onClick={() => closeModal()}
+                onClick={() => dispatch(resetModal())}
               >
                 Cancel
               </button>
@@ -141,7 +143,7 @@ const NoteForm = ({ noteData, action, closeModal }) => {
                 type="submit"
                 className="inline-block rounded-lg border-2 border-gray-900 px-6 py-3 text-sm font-medium uppercase leading-tight text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0"
               >
-                {action}
+                {modalType}
               </button>
             </div>
           </form>

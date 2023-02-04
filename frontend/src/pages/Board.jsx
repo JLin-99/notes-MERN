@@ -1,30 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getNotes, reset } from "../features/notes/noteSlice";
+import {
+  openModal,
+  resetModal,
+  setModalType,
+} from "../features/modal/modalSlice";
 import Modal from "react-modal";
 import NewNote from "../components/NoteForm";
 import Spinner from "../components/Spinner";
 import NoteItem from "../components/NoteItem";
 
-const customStyles = {
-  content: {
-    width: "50%",
-    minHeight: "50%",
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    position: "relative",
-  },
-};
-
 Modal.setAppElement("#root");
 
 const Board = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { notes, isLoading, isSuccess } = useSelector((state) => state.note);
+  const { isModalOpen } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,17 +30,9 @@ const Board = () => {
     dispatch(getNotes());
   }, [dispatch]);
 
-  const openModal = () => {
-    if (modalIsOpen) return;
-    setModalIsOpen(true);
-  };
-  const closeModal = () => setModalIsOpen(false);
-  const handleBtn = (btn) => {
-    switch (btn) {
-      case "show":
-        console.log(btn);
-        break;
-    }
+  const handleCreateNote = () => {
+    dispatch(setModalType("Create"));
+    dispatch(openModal());
   };
 
   return (
@@ -59,7 +42,7 @@ const Board = () => {
         <div className="flex items-center gap-5">
           <div
             className="cursor-pointer rounded-lg border-2 border-gray-900 px-3 py-2 text-base font-medium uppercase leading-tight text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0"
-            onClick={openModal}
+            onClick={handleCreateNote}
           >
             Create note
           </div>
@@ -69,23 +52,22 @@ const Board = () => {
         </div>
       </header>
 
-      {isLoading ? (
+      {isLoading && !isModalOpen ? (
         <Spinner />
       ) : (
         <div className="flex grow flex-wrap content-start gap-5 p-5">
           {notes.map((note) => (
-            <NoteItem key={note._id} note={note} handleBtn={handleBtn} />
+            <NoteItem key={note._id} note={note} />
           ))}
         </div>
       )}
 
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        className="rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none"
+        isOpen={isModalOpen}
+        onRequestClose={() => dispatch(resetModal())}
+        className={`rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none ${"relative top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] min-h-[50%] w-1/2 translate-x-[-50%] translate-y-[-50%]"}`}
       >
-        <NewNote closeModal={closeModal} action="Create" />
+        <NewNote />
       </Modal>
     </div>
   );

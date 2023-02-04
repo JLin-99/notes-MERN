@@ -80,7 +80,7 @@ const updateNote = asyncHandler(async (req, res) => {
   const duplicatedTitle = await Note.findOne({ title: req.body.title })
     .lean()
     .exec();
-  if (duplicatedTitle) {
+  if (duplicatedTitle && duplicatedTitle._id.toString() !== req.params.id) {
     return res.status(409).json({ message: "Duplicated title" });
   }
 

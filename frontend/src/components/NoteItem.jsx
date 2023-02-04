@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import { deleteNote } from "../features/notes/noteSlice";
+import {
+  openModal,
+  setModalNote,
+  setModalType,
+} from "../features/modal/modalSlice";
 import { FaEdit, FaStickyNote, FaTrashAlt } from "react-icons/fa";
 import { BsFillArchiveFill } from "react-icons/bs";
-import { useState } from "react";
-import Modal from "react-modal";
-import NoteForm from "./NoteForm";
 
-const NoteItem = ({ note, handleBtn }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const NoteItem = ({ note }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -15,12 +16,15 @@ const NoteItem = ({ note, handleBtn }) => {
   };
 
   const handleEdit = () => {
-    setIsOpen(true);
+    dispatch(setModalType("Edit"));
+    dispatch(setModalNote(note));
+    dispatch(openModal());
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const handleBtn = () => {
+    console.log("nada");
   };
+
   return (
     <>
       <div className="flex h-full w-[48%] min-w-[420px] gap-5 rounded-md border-2 border-gray-900 p-5 text-gray-900 transition duration-100 ease-in-out hover:bg-amber-600 hover:bg-opacity-50 focus:outline-none focus:ring-0">
@@ -44,14 +48,6 @@ const NoteItem = ({ note, handleBtn }) => {
           <FaTrashAlt size={30} onClick={handleDelete} />
         </div>
       </div>
-
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={closeModal}
-        className={`rounded-lg border-2 border-gray-800 bg-gray-200 p-5 focus:outline-none ${"relative top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] min-h-[50%] w-1/2 translate-x-[-50%] translate-y-[-50%]"}`}
-      >
-        <NoteForm closeModal={closeModal} action="Edit" noteData={note} />
-      </Modal>
     </>
   );
 };
