@@ -19,16 +19,8 @@ const Board = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    return () => {
-      if (isSuccess) {
-        dispatch(reset());
-      }
-    };
-  }, [dispatch, isSuccess]);
-
-  useEffect(() => {
     dispatch(getNotes());
-  }, [dispatch]);
+  }, []);
 
   const handleCreateNote = () => {
     dispatch(setModalType("Create"));
