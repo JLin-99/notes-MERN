@@ -16,7 +16,7 @@ Modal.setAppElement("#root");
 
 const Board = () => {
   const [view, setView] = useState("main");
-  const { notes, isLoading } = useSelector((state) => state.note);
+  const { notes, categories, isLoading } = useSelector((state) => state.note);
   const { isModalOpen, modalType } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 

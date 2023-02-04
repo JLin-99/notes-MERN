@@ -3,6 +3,7 @@ import noteService from "./noteService";
 
 const initialState = {
   notes: [],
+  categories: [],
   note: {},
   isError: false,
   isSuccess: false,
@@ -97,6 +98,9 @@ export const noteSlice = createSlice({
       state.message = "";
       state.note = {};
     },
+    addCategories: (state, action) => {
+      state.categories = [...new Set([...state.categories, ...action.payload])];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -120,6 +124,13 @@ export const noteSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.notes = action.payload;
+
+        state.categories = action.payload.reduce(
+          (categories, note) => [
+            ...new Set([...categories, ...note.categories]),
+          ],
+          []
+        );
       })
       .addCase(getNotes.rejected, (state, action) => {
         state.isLoading = false;
@@ -159,5 +170,5 @@ export const noteSlice = createSlice({
   },
 });
 
-export const { reset } = noteSlice.actions;
+export const { reset, addCategories } = noteSlice.actions;
 export default noteSlice.reducer;
